@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuecheng.manage_course.dao.CourseMapper">
+
+    <select id="findCourseBaseById" parameterType="java.lang.String"
+            resultType="com.xuecheng.framework.domain.course.CourseBase">
+        select * from course_base where id = #{id}
+    </select>
+
+    <!--pageHlper测试-->
+    <select id="fingCourseBase" resultType="com.xuecheng.framework.domain.course.CourseBase">
+      select * from course_base
+    </select>
+
+
+    <select id="fingCourseListPage" parameterType="com.xuecheng.framework.domain.course.request.CourseListRequest"
+            resultType="com.xuecheng.framework.domain.course.ext.CourseInfo">
+      SELECT
+      course_base.*,
+      (SELECT
+        pic
+      FROM
+        course_pic
+      WHERE company_id = course_base.`id`) AS pic
+    FROM
+      course_base
+        <where>
+            <if test="companyId!=null and companyId!=''">
+                   and course_base.company_id = #{companyId}
+            </if>
+        </where>
+    </select>
+</mapper>

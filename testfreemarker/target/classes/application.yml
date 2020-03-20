@@ -1,0 +1,9 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: test-freemarker
+  freemarker:
+    cache: false #测试阶段关掉缓存
+    settings:
+      template_update_delay: 0 #检查模板更新时间延迟，0表示理解检查。如果时间大于0会有缓存不方便对模板进行测试
